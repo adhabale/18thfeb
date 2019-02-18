@@ -1,0 +1,79 @@
+     
+<form  [formGroup]='sanctionActivityGroup'> 
+<div class="stepper-control">
+<div class="row">
+                <div class="col-sm-12 col-md-3 col-lg-4">
+                  <label>Activity Type</label>
+                </div>
+                <div class="col-sm-12 col-md-3 col-lg-8">
+                  <mat-radio-group class="activity-radio-group" formControlName="sanctionActivityType">
+                    <mat-radio-button color="primary" class="activity-radio-button" *ngFor="let activityType of sanctionActiviytTypes"
+                      [value]="activityType">
+                      {{activityType}}
+                    </mat-radio-button>
+                  </mat-radio-group>
+                </div>
+              </div> 
+ </div>
+            <div class="stepper-control" *ngIf="sanctionActivityType.value=='Quote'||sanctionActivityType.value=='Placement'">
+              <div class="row">
+                <div class="col-sm-12 col-md-3 col-lg-4">
+                  <label class="control-label">Policy Type</label>
+                </div>
+                <div class="col-sm-12 col-md-3 col-lg-8">
+                  <mat-button-toggle-group value="New Policy" aria-label="Change color" formControlName="policyType">
+                    <mat-button-toggle id="primary" value="New Policy"> New Policy </mat-button-toggle>
+                    <mat-button-toggle id="secondary" value="Renewal"> Renewal </mat-button-toggle>
+                  </mat-button-toggle-group>
+                </div>
+              </div>
+            </div>
+
+            <div class="stepper-control" *ngIf="sanctionActivityType.value=='Claim' || policyType.value=='Renewal'">
+              <div class="row">
+                <div class="col-sm-12 col-md-3 col-lg-4">
+                  <label class="control-label">Policy number</label>
+                </div>
+                <div class="col-sm-12 col-md-3 col-lg-8">
+                  <mat-form-field class="example-form-field">
+                    <input matInput type="text" placeholder="Policy Number" formControlName="policyNumber">
+                    <button mat-button *ngIf="policyNumber" matSuffix mat-icon-button aria-label="Clear" (click)="policyNumber=''">
+                      <mat-icon>close</mat-icon>
+                    </button>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+
+               <div class="stepper-control" *ngIf="sanctionActivityType.value=='Claim'">
+              <div class="row">
+                <div class="col-sm-12 col-md-3 col-lg-4">
+                  <label class="control-label">Claim Date</label>
+                </div>
+                <div class="col-sm-12 col-md-3 col-lg-8">
+                  <mat-form-field>
+                    <input matInput [matDatepicker]="claimDatePicker" placeholder="Claim Date" formControlName="claimDate"
+                      required>
+                    <mat-datepicker-toggle matSuffix [for]="claimDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #claimDatePicker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            
+
+              <div class="stepper-control" *ngIf="sanctionActivityType.value=='Claim'">
+              <div class="row">
+                <div class="col-sm-12 col-md-3 col-lg-4">
+                  <label class="control-label">Claim Details</label>
+                </div>
+                <div class="col-sm-12 col-md-3 col-lg-8">
+                  <mat-form-field style="width:75%">
+                    <mat-label>Claim Details</mat-label>
+                    <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="2"
+                      cdkAutosizeMaxRows="5" formControlName="claimDetails"></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+</form>

@@ -1,0 +1,50 @@
+<form [formGroup]='sanctionTypeGroup'>
+  <div class="stepper-control">
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-12">
+        <mat-form-field class="input-control">
+          <mat-select placeholder="Sanction Type" formControlName="sanctionFormType">
+            <mat-option *ngFor="let sanctionType of sanctionTypes" [value]="sanctionType">
+              {{sanctionType}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row" *ngIf="sanctionFormType.value=='Insurance or Reinsurance Form'">
+      <div class="col-sm-12 col-md-12 col-lg-12">
+        <mat-form-field class="input-control">
+          <mat-select placeholder="Sanctioned country(ies)" formControlName="sanctionedCountry" (selectionChange)="checkUkraine(sanctionedCountry.value)"
+            required multiple>
+            <mat-option *ngFor="let country of sanctionedCountries" [value]="country">{{country}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="!sanctionedCountry.value">
+            Sanctioned countries <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row" *ngIf="ukraineExposure" style="margin-bottom:15px;">
+      <div class="col-md-12 col-sm-12 col-lg-6">
+        <label class="control-label">If there is any exposure to Crimea/Sevastopol</label>
+      </div>
+      <div class="col-sm-12 col-md-12 col-lg-6">
+        <mat-button-toggle-group value="crimeaExposure" aria-label="Change color" formControlName="crimeaExposure">
+          <mat-button-toggle style="width:80px" id="primary" value="Yes"> Yes </mat-button-toggle>
+          <mat-button-toggle style="width:80px" id="secondary" value="No"> No </mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+    </div>
+    <div class="row" *ngIf="sanctionFormType.value=='Insurance or Reinsurance Form'">
+      <div class="col-md-12 col-sm-12 col-lg-6">
+        <label class="control-label">Is the movement of Controlled Goods covered under this policy?</label>
+      </div>
+      <div class="col-sm-12 col-md-12 col-lg-6">
+        <mat-button-toggle-group aria-label="Change color" value='No' formControlName="controlledGoodsInvolvement">
+          <mat-button-toggle style="width:80px" id="primary" value="Yes"> Yes </mat-button-toggle>
+          <mat-button-toggle style="width:80px" id="secondary" value="No"> No </mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+    </div>
+  </div>
+</form>
